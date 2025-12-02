@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servlet转发测试</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            margin: 5px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <h1>Servlet转发测试</h1>
+
+    <div class="test-section">
+        <h2>直接访问HelloServlet</h2>
+        <button onclick="testDirectHello()">测试直接访问</button>
+        <div id="directResult" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>通过ForwardServlet转发到HelloServlet</h2>
+        <button onclick="testForwardHello()">测试转发访问</button>
+        <div id="forwardResult" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>带参数的转发测试</h2>
+        <input type="text" id="paramName" placeholder="参数名" value="testParam">
+        <input type="text" id="paramValue" placeholder="参数值" value="testValue">
+        <button onclick="testForwardWithParams()">测试带参数转发</button>
+        <div id="forwardParamsResult" class="result"></div>
+    </div>
+
+    <script>
+        function testDirectHello() {
+            fetch('/hello')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('directResult').textContent = JSON.stringify(data, null, 2);
+                })
+                .catch(error => {
+                    document.getElementById('directResult').textContent = '错误: ' + error;
+                });
+        }
+
+        function testForwardHello() {
+            fetch('/forward')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('forwardResult').textContent = JSON.stringify(data, null, 2);
+                })
+                .catch(error => {
+                    document.getElementById('forwardResult').textContent = '错误: ' + error;
+                });
+        }
+
+        function testForwardWithParams() {
+            const paramName = document.getElementById('paramName').value;
+            const paramValue = document.getElementById('paramValue').value;
+
+            fetch(`/forward?${paramName}=${paramValue}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('forwardParamsResult').textContent = JSON.stringify(data, null, 2);
+                })
+                .catch(error => {
+                    document.getElementById('forwardParamsResult').textContent = '错误: ' + error;
+                });
+        }
+    </script>
+</body>
+</html>
