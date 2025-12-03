@@ -27,6 +27,8 @@ public class TomcatConfig {
         filterMap.addURLPattern("/*");
         ctx.addFilterMap(filterMap);
 
+        ctx.addApplicationListener("com.example.OnlineUserListener");
+
         // 创建HelloServlet实例
         HelloServlet helloServlet = new HelloServlet();
         ForwardServlet forwardServlet = new ForwardServlet();
