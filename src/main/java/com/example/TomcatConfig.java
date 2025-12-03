@@ -48,5 +48,11 @@ public class TomcatConfig {
         // 添加DownloadServlet到上下文
         Tomcat.addServlet(ctx, "downloadServlet", downloadServlet);
         ctx.addServletMappingDecoded("/download", "downloadServlet");
+
+        // 创建UserServlet实例
+        UserServlet userServlet = new UserServlet();
+        // 添加UserServlet到上下文
+        Tomcat.addServlet(ctx, "userServlet", userServlet);
+        ctx.addServletMappingDecoded("/user", "userServlet");
     }
 }
