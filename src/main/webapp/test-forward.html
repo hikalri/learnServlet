@@ -62,9 +62,16 @@
         <div id="forwardParamsResult" class="result"></div>
     </div>
 
+    <div class="test-section">
+        <h2>浏览器 Cookie 检查</h2>
+        <button onclick="showDocumentCookies()">显示 document.cookie</button>
+        <button onclick="clearForwardCookie()">删除 forwardCookie</button>
+        <div id="documentCookieResult" class="result"></div>
+    </div>
+
     <script>
         function testDirectHello() {
-            fetch('/hello')
+            fetch('/hello', { credentials: 'same-origin' })
                 .then(response => response.json())
                 .then(data => {
                     document.getElementById('directResult').textContent = JSON.stringify(data, null, 2);
@@ -75,10 +82,10 @@
         }
 
         function testForwardHello() {
-            fetch('/forward')
+            fetch('/forward', { credentials: 'same-origin' })
                 .then(response => response.json())
                 .then(data => {
-                    document.getElementById('forwardResult').textContent = JSON.stringify(data, null, 2);
+                    document.getElementById('forwardResult').textContent = JSON.stringify(data, null, 2) + "\n\n浏览器 document.cookie: " + document.cookie;
                 })
                 .catch(error => {
                     document.getElementById('forwardResult').textContent = '错误: ' + error;
@@ -89,14 +96,24 @@
             const paramName = document.getElementById('paramName').value;
             const paramValue = document.getElementById('paramValue').value;
 
-            fetch(`/forward?${paramName}=${paramValue}`)
+            fetch(`/forward?${paramName}=${paramValue}`, { credentials: 'same-origin' })
                 .then(response => response.json())
                 .then(data => {
-                    document.getElementById('forwardParamsResult').textContent = JSON.stringify(data, null, 2);
+                    document.getElementById('forwardParamsResult').textContent = JSON.stringify(data, null, 2) + "\n\n浏览器 document.cookie: " + document.cookie;
                 })
                 .catch(error => {
                     document.getElementById('forwardParamsResult').textContent = '错误: ' + error;
                 });
+        }
+
+        function showDocumentCookies() {
+            document.getElementById('documentCookieResult').textContent = document.cookie || '(无)';
+        }
+
+        function clearForwardCookie() {
+            // 尝试删除 forwardCookie
+            document.cookie = 'forwardCookie=; Max-Age=0; path=/';
+            showDocumentCookies();
         }
     </script>
 </body>
