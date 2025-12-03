@@ -32,11 +32,16 @@ public class TomcatConfig {
         // 创建HelloServlet实例
         HelloServlet helloServlet = new HelloServlet();
         ForwardServlet forwardServlet = new ForwardServlet();
+        HomeServlet homeServlet = new HomeServlet();
+
         // 添加HelloServlet到上下文
         Tomcat.addServlet(ctx, "helloServlet", helloServlet);
         Tomcat.addServlet(ctx, "forwardServlet", forwardServlet);
+        Tomcat.addServlet(ctx, "homeServlet", homeServlet);
+
         ctx.addServletMappingDecoded("/hello", "helloServlet");
         ctx.addServletMappingDecoded("/forward", "forwardServlet");
+        ctx.addServletMappingDecoded("", "homeServlet");
         // 创建DownloadServlet实例
         DownloadServlet downloadServlet = new DownloadServlet();
 

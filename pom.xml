@@ -24,26 +24,6 @@
       <artifactId>tomcat-embed-core</artifactId>
       <version>9.0.58</version>
     </dependency>
-    <dependency>
-      <groupId>org.apache.tomcat.embed</groupId>
-      <artifactId>tomcat-embed-jasper</artifactId>
-      <version>9.0.58</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.tomcat</groupId>
-      <artifactId>tomcat-jasper</artifactId>
-      <version>9.0.58</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.tomcat</groupId>
-      <artifactId>tomcat-jasper-el</artifactId>
-      <version>9.0.58</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.tomcat</groupId>
-      <artifactId>tomcat-jsp-api</artifactId>
-      <version>9.0.58</version>
-    </dependency>
     <!-- Servlet API -->
     <dependency>
       <groupId>javax.servlet</groupId>
