@@ -30,7 +30,7 @@ public class Application {
 
         // 设置基础目录
         String webappDirLocation = "src/main/webapp/";
-        StandardContext ctx = (StandardContext) tomcat.addWebapp("",
+        StandardContext ctx = (StandardContext) tomcat.addContext("",
             new File(webappDirLocation).getAbsolutePath());
 
         // 设置URI编码为UTF-8
