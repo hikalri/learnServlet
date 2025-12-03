@@ -1,6 +1,8 @@
 package com.example;
 
 import org.apache.catalina.core.StandardContext;
+import org.apache.tomcat.util.descriptor.web.FilterDef;
+import org.apache.tomcat.util.descriptor.web.FilterMap;
 import org.apache.catalina.startup.Tomcat;
 
 /**
@@ -13,6 +15,18 @@ public class TomcatConfig {
      * @param ctx Tomcat上下文
      */
     public static void configureServlets(StandardContext ctx) {
+        // 配置CharacterEncodingFilter
+        FilterDef filterDef = new FilterDef();
+        filterDef.setFilterName("CharacterEncodingFilter");
+        filterDef.setFilterClass("com.example.CharacterEncodingFilter");
+        filterDef.addInitParameter("encoding", "UTF-8");
+        ctx.addFilterDef(filterDef);
+
+        FilterMap filterMap = new FilterMap();
+        filterMap.setFilterName("CharacterEncodingFilter");
+        filterMap.addURLPattern("/*");
+        ctx.addFilterMap(filterMap);
+
         // 创建HelloServlet实例
         HelloServlet helloServlet = new HelloServlet();
         ForwardServlet forwardServlet = new ForwardServlet();
