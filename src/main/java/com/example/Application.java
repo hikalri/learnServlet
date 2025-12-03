@@ -50,8 +50,6 @@ public class Application {
         // 启动Tomcat
         tomcat.start();
         System.out.println("服务器已启动，访问地址: http://localhost:8080");
-        System.out.println("Hello Servlet: http://localhost:8080/hello");
-        System.out.println("Download Servlet: http://localhost:8080/download");
 
         // 保持服务器运行
         tomcat.getServer().await();
