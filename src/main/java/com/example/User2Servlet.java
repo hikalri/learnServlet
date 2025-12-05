@@ -53,11 +53,7 @@ public class User2Servlet extends HttpServlet {
             resp.getWriter().write("{\"message\":\"事务回滚成功: " + e.getMessage() + "\", \"status\":\"error\"}");
         } finally {
             if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+                DBUtil.releaseConnection(conn);
             }
         }
     }

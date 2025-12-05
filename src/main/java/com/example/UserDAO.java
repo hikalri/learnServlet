@@ -11,14 +11,19 @@ public class UserDAO {
 
     public void add(User user) {
         String sql = "INSERT INTO user (name, email, age) VALUES (?, ?, ?)";
-        try (Connection conn = DBUtil.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        try {
+            conn = DBUtil.getConnection();
+            pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, user.getName());
             pstmt.setString(2, user.getEmail());
             pstmt.setInt(3, user.getAge());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            DBUtil.close(conn, pstmt);
         }
     }
 
@@ -34,8 +39,11 @@ public class UserDAO {
 
     public void update(User user) {
         String sql = "UPDATE user SET name = ?, email = ?, age = ? WHERE id = ?";
-        try (Connection conn = DBUtil.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        try {
+            conn = DBUtil.getConnection();
+            pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, user.getName());
             pstmt.setString(2, user.getEmail());
             pstmt.setInt(3, user.getAge());
@@ -43,32 +51,44 @@ public class UserDAO {
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            DBUtil.close(conn, pstmt);
         }
     }
 
     public void delete(Long id) {
         String sql = "DELETE FROM user WHERE id = ?";
-        try (Connection conn = DBUtil.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        try {
+            conn = DBUtil.getConnection();
+            pstmt = conn.prepareStatement(sql);
             pstmt.setLong(1, id);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            DBUtil.close(conn, pstmt);
         }
     }
 
     public User get(Long id) {
         String sql = "SELECT * FROM user WHERE id = ?";
-        try (Connection conn = DBUtil.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            pstmt = conn.prepareStatement(sql);
             pstmt.setLong(1, id);
-            try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()) {
-                    return mapRowToUser(rs);
-                }
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return mapRowToUser(rs);
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            DBUtil.close(conn, pstmt, rs);
         }
         return null;
     }
@@ -76,14 +96,20 @@ public class UserDAO {
     public List<User> getAll() {
         List<User> users = new ArrayList<>();
         String sql = "SELECT * FROM user";
-        try (Connection conn = DBUtil.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
             while (rs.next()) {
                 users.add(mapRowToUser(rs));
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            DBUtil.close(conn, pstmt, rs);
         }
         return users;
     }

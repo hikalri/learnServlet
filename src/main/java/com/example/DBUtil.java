@@ -1,7 +1,6 @@
 package com.example;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -32,11 +31,7 @@ public class DBUtil {
      * @throws SQLException
      */
     public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(
-                properties.getProperty("db.url"),
-                properties.getProperty("db.username"),
-                properties.getProperty("db.password")
-        );
+        return ConnectionPool.getInstance().getConnection();
     }
 
     /**
@@ -61,11 +56,8 @@ public class DBUtil {
             }
         }
         if (conn != null) {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            // 归还连接到连接池，而不是直接关闭
+            ConnectionPool.getInstance().releaseConnection(conn);
         }
     }
 
@@ -76,5 +68,15 @@ public class DBUtil {
      */
     public static void close(Connection conn, PreparedStatement pstmt) {
         close(conn, pstmt, null);
+    }
+
+    /**
+     * 仅归还连接到连接池
+     * @param conn 连接对象
+     */
+    public static void releaseConnection(Connection conn) {
+        if (conn != null) {
+            ConnectionPool.getInstance().releaseConnection(conn);
+        }
     }
 }

@@ -34,8 +34,15 @@ public class Application {
 
         TomcatConfig.configureServlets(ctx);
 
+        // 添加关闭钩子，确保连接池正确关闭
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            System.out.println("正在关闭应用...");
+            ConnectionPool.getInstance().closeAll();
+        }));
+
         tomcat.start();
         System.out.println("服务器已启动，访问地址: http://localhost:8080");
+        System.out.println(ConnectionPool.getInstance().getPoolStatus());
         tomcat.getServer().await();
     }
 }
