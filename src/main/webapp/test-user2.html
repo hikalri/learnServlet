@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>User2 事务测试</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        .result { margin-top: 10px; padding: 10px; border: 1px solid #ccc; background: #f9f9f9; }
+        .error { color: red; }
+        .success { color: green; }
+        button { padding: 8px 15px; margin-right: 10px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>User2 事务测试</h1>
+
+    <div>
+        <button onclick="testTransaction('success')">测试事务提交 (成功)</button>
+        <button onclick="testTransaction('fail')">测试事务回滚 (失败)</button>
+    </div>
+
+    <div id="result" class="result">结果将显示在这里...</div>
+
+    <script>
+        function testTransaction(type) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '正在请求...';
+            resultDiv.className = 'result';
+
+            fetch('/user2?type=' + type, {
+                method: 'POST'
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(err => { throw err; });
+                }
+                return response.json();
+            })
+            .then(data => {
+                resultDiv.innerHTML = '<strong>操作成功:</strong> ' + data.message;
+                resultDiv.classList.add('success');
+            })
+            .catch(err => {
+                console.error('Error:', err);
+                const msg = err.message || '未知错误';
+                resultDiv.innerHTML = '<strong>操作失败:</strong> ' + msg;
+                resultDiv.classList.add('error');
+            });
+        }
+    </script>
+</body>
+</html>

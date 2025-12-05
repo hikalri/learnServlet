@@ -22,6 +22,16 @@ public class UserDAO {
         }
     }
 
+    public void add(Connection conn, User user) throws SQLException {
+        String sql = "INSERT INTO user (name, email, age) VALUES (?, ?, ?)";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, user.getName());
+            pstmt.setString(2, user.getEmail());
+            pstmt.setInt(3, user.getAge());
+            pstmt.executeUpdate();
+        }
+    }
+
     public void update(User user) {
         String sql = "UPDATE user SET name = ?, email = ?, age = ? WHERE id = ?";
         try (Connection conn = DBUtil.getConnection();
