@@ -30,40 +30,26 @@ public class TomcatConfig {
         ctx.addApplicationListener("com.example.OnlineUserListener");
 
         // 添加默认Servlet来处理静态资源
-        org.apache.catalina.servlets.DefaultServlet defaultServlet = new org.apache.catalina.servlets.DefaultServlet();
-        Tomcat.addServlet(ctx, "default", defaultServlet);
+        Tomcat.addServlet(ctx, "default", new org.apache.catalina.servlets.DefaultServlet());
         ctx.addServletMappingDecoded("/", "default");
 
-        // 创建HelloServlet实例
-        HelloServlet helloServlet = new HelloServlet();
-        ForwardServlet forwardServlet = new ForwardServlet();
-        HomeServlet homeServlet = new HomeServlet();
-
-        // 添加HelloServlet到上下文
-        Tomcat.addServlet(ctx, "helloServlet", helloServlet);
-        Tomcat.addServlet(ctx, "forwardServlet", forwardServlet);
-        Tomcat.addServlet(ctx, "homeServlet", homeServlet);
-
+        // 添加所有Servlet
+        Tomcat.addServlet(ctx, "helloServlet", new HelloServlet());
         ctx.addServletMappingDecoded("/hello", "helloServlet");
-        ctx.addServletMappingDecoded("/forward", "forwardServlet");
-        ctx.addServletMappingDecoded("", "homeServlet");
-        // 创建DownloadServlet实例
-        DownloadServlet downloadServlet = new DownloadServlet();
 
-        // 添加DownloadServlet到上下文
-        Tomcat.addServlet(ctx, "downloadServlet", downloadServlet);
+        Tomcat.addServlet(ctx, "forwardServlet", new ForwardServlet());
+        ctx.addServletMappingDecoded("/forward", "forwardServlet");
+
+        Tomcat.addServlet(ctx, "homeServlet", new HomeServlet());
+        ctx.addServletMappingDecoded("", "homeServlet");
+
+        Tomcat.addServlet(ctx, "downloadServlet", new DownloadServlet());
         ctx.addServletMappingDecoded("/download", "downloadServlet");
 
-        // 创建UserServlet实例
-        UserServlet userServlet = new UserServlet();
-        // 添加UserServlet到上下文
-        Tomcat.addServlet(ctx, "userServlet", userServlet);
+        Tomcat.addServlet(ctx, "userServlet", new UserServlet());
         ctx.addServletMappingDecoded("/user", "userServlet");
 
-        // 创建User2Servlet实例
-        User2Servlet user2Servlet = new User2Servlet();
-        // 添加User2Servlet到上下文
-        Tomcat.addServlet(ctx, "user2Servlet", user2Servlet);
+        Tomcat.addServlet(ctx, "user2Servlet", new User2Servlet());
         ctx.addServletMappingDecoded("/user2", "user2Servlet");
     }
 }
