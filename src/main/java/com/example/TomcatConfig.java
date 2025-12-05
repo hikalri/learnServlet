@@ -29,6 +29,11 @@ public class TomcatConfig {
 
         ctx.addApplicationListener("com.example.OnlineUserListener");
 
+        // 添加默认Servlet来处理静态资源
+        org.apache.catalina.servlets.DefaultServlet defaultServlet = new org.apache.catalina.servlets.DefaultServlet();
+        Tomcat.addServlet(ctx, "default", defaultServlet);
+        ctx.addServletMappingDecoded("/", "default");
+
         // 创建HelloServlet实例
         HelloServlet helloServlet = new HelloServlet();
         ForwardServlet forwardServlet = new ForwardServlet();
