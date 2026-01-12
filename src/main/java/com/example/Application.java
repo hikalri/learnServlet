@@ -16,9 +16,13 @@ public class Application {
 
     public static void main(String[] args) throws Exception {
         Tomcat tomcat = new Tomcat();
+        // BaseDir 决定了 Tomcat 运行时的临时文件存放位置（例如 Work 目录、临时解压目录等）
         tomcat.setBaseDir(new File(".").getAbsolutePath());
         tomcat.setPort(8080);
 
+        // 如果你只是运行 Servlet，使用 addContext 就足够了，它非常轻量
+        // addContext(..., "src/main/webapp/")：告诉 Tomcat 静态资源（HTML/CSS/JS）在哪里
+        // 例外：如果你在 webapp 下创建了一个名为 WEB-INF 的文件夹，Tomcat 会严格禁止外部通过 URL 直接访问这个文件夹里的任何内容
         StandardContext ctx = (StandardContext) tomcat.addContext("",
             new File("src/main/webapp/").getAbsolutePath());
 
@@ -27,6 +31,9 @@ public class Application {
         tomcat.getConnector().setUseBodyEncodingForURI(true);
 
         // 声明编译后的类路径位置
+        // 根据 Servlet 规范，它会去虚拟路径 /WEB-INF/classes 下寻找对应的 .class 文件
+        // DirResourceSet(..., "/WEB-INF/classes", "target/classes", "/")：告诉 Tomcat
+        // 编译后的业务代码在哪里
         WebResourceRoot resources = new StandardRoot(ctx);
         resources.addPreResources(new DirResourceSet(resources, "/WEB-INF/classes",
             new File("target/classes").getAbsolutePath(), "/"));
