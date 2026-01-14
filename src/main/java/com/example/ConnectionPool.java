@@ -66,16 +66,11 @@ public class ConnectionPool {
      */
     private Connection createNewConnection() throws SQLException {
         long start = System.currentTimeMillis();
-        try {
-            // 加载驱动
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection conn = DriverManager.getConnection(url, username, password);
-            long cost = System.currentTimeMillis() - start;
-            System.out.println("创建新数据库连接耗时: " + cost + " ms");
-            return conn;
-        } catch (ClassNotFoundException e) {
-            throw new SQLException("数据库驱动加载失败", e);
-        }
+        Connection conn = DriverManager.getConnection(url, username, password);
+        long cost = System.currentTimeMillis() - start;
+        System.out.println("创建新数据库连接耗时: " + cost + " ms");
+        return conn;
+
     }
 
     /**

@@ -34,12 +34,8 @@ public class HelloServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // 设置请求编码为UTF-8
-        request.setCharacterEncoding("UTF-8");
-
         // 设置响应类型为 JSON
         response.setContentType("application/json;charset=UTF-8");
-        response.setCharacterEncoding("UTF-8");
         // 添加CORS支持
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
@@ -91,12 +87,8 @@ public class HelloServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // 设置请求编码为UTF-8
-        request.setCharacterEncoding("UTF-8");
-
         // 设置响应类型为 JSON
         response.setContentType("application/json;charset=UTF-8");
-        response.setCharacterEncoding("UTF-8");
 
         // 添加CORS支持
         response.setHeader("Access-Control-Allow-Origin", "*");

@@ -14,7 +14,6 @@ public class User2Servlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setCharacterEncoding("UTF-8");
         resp.setContentType("application/json;charset=UTF-8");
 
         String type = req.getParameter("type"); // "success" or "fail"

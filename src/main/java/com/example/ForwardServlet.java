@@ -17,8 +17,6 @@ public class ForwardServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // 设置请求编码为UTF-8
-        request.setCharacterEncoding("UTF-8");
         Cookie[] cookie = request.getCookies();
         // 如果请求中没有cookie，则在响应中设置一个cookie
         boolean hasCookie = (cookie != null && cookie.length > 0);
