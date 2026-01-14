@@ -140,9 +140,9 @@ src/
 
 #### 1.1 Servlet 生命周期
 项目中的多个Servlet（如[`HelloServlet`](src/main/java/com/example/HelloServlet.java)）展示了Servlet的完整生命周期：
-- **初始化阶段**：[`init()`](src/main/java/com/example/HelloServlet.java:21)方法在Servlet首次创建时调用，用于初始化资源
-- **服务阶段**：[`doGet()`](src/main/java/com/example/HelloServlet.java:35)、[`doPost()`](src/main/java/com/example/HelloServlet.java:92)等方法处理客户端请求
-- **销毁阶段**：[`destroy()`](src/main/java/com/example/HelloServlet.java:188)方法在Servlet卸载时调用，释放资源
+- **初始化阶段**：[`init()`](src/main/java/com/example/HelloServlet.java:L21)方法在Servlet首次创建时调用，用于初始化资源
+- **服务阶段**：[`doGet()`](src/main/java/com/example/HelloServlet.java:L35)、[`doPost()`](src/main/java/com/example/HelloServlet.java:L92)等方法处理客户端请求
+- **销毁阶段**：[`destroy()`](src/main/java/com/example/HelloServlet.java:L188)方法在Servlet卸载时调用，释放资源
 
 #### 1.2 Servlet 配置与映射
 项目通过[`TomcatConfig`](src/main/java/com/example/TomcatConfig.java)类以编程方式配置Servlet映射：
@@ -155,15 +155,15 @@ ctx.addServletMappingDecoded("/hello", "helloServlet");
 
 #### 2.1 请求参数处理
 [`HelloServlet`](src/main/java/com/example/HelloServlet.java)展示了多种请求参数处理方式：
-- 查询参数：[`request.getParameterMap()`](src/main/java/com/example/HelloServlet.java:53)
-- JSON请求体：通过[`BufferedReader`](src/main/java/com/example/HelloServlet.java:119)读取并解析
-- 表单数据：通过[`request.getParameterMap()`](src/main/java/com/example/HelloServlet.java:139)获取
+- 查询参数：[`request.getParameterMap()`](src/main/java/com/example/HelloServlet.java:L53)
+- JSON请求体：通过[`BufferedReader`](src/main/java/com/example/HelloServlet.java:L119)读取并解析
+- 表单数据：通过[`request.getParameterMap()`](src/main/java/com/example/HelloServlet.java:L139)获取
 
 #### 2.2 响应生成
 项目展示了多种响应格式：
-- JSON响应：使用[`Jackson`](src/main/java/com/example/HelloServlet.java:86)库生成JSON
+- JSON响应：使用[`Jackson`](src/main/java/com/example/HelloServlet.java:L86)库生成JSON
 - 文件下载：[`DownloadServlet`](src/main/java/com/example/DownloadServlet.java)演示了文件下载实现
-- 错误响应：通过[`response.setStatus()`](src/main/java/com/example/UserServlet.java:28)设置HTTP状态码
+- 错误响应：通过[`response.setStatus()`](src/main/java/com/example/UserServlet.java:L28)设置HTTP状态码
 
 #### 2.3 字符编码处理
 项目通过[`CharacterEncodingFilter`](src/main/java/com/example/CharacterEncodingFilter.java)统一处理字符编码：
@@ -190,30 +190,30 @@ Cookie[] cookie = request.getCookies();
 
 #### 3.3 过滤器 (Filter)
 [`CharacterEncodingFilter`](src/main/java/com/example/CharacterEncodingFilter.java)实现了过滤器接口，用于统一处理请求和响应的字符编码：
-- [`init()`](src/main/java/com/example/CharacterEncodingFilter.java:15)：过滤器初始化
-- [`doFilter()`](src/main/java/com/example/CharacterEncodingFilter.java:23)：执行过滤逻辑
-- [`destroy()`](src/main/java/com/example/CharacterEncodingFilter.java:35)：过滤器销毁
+- [`init()`](src/main/java/com/example/CharacterEncodingFilter.java:L15)：过滤器初始化
+- [`doFilter()`](src/main/java/com/example/CharacterEncodingFilter.java:L23)：执行过滤逻辑
+- [`destroy()`](src/main/java/com/example/CharacterEncodingFilter.java:L35)：过滤器销毁
 
 #### 3.4 监听器 (Listener)
-[`OnlineUserListener`](src/main/java/com/example/OnlineUserListener.java)实现了[`HttpSessionListener`](src/main/java/com/example/OnlineUserListener.java:10)接口，用于统计在线用户数：
-- [`sessionCreated()`](src/main/java/com/example/OnlineUserListener.java:13)：会话创建时调用
-- [`sessionDestroyed()`](src/main/java/com/example/OnlineUserListener.java:29)：会话销毁时调用
+[`OnlineUserListener`](src/main/java/com/example/OnlineUserListener.java)实现了[`HttpSessionListener`](src/main/java/com/example/OnlineUserListener.java:L10)接口，用于统计在线用户数：
+- [`sessionCreated()`](src/main/java/com/example/OnlineUserListener.java:L13)：会话创建时调用
+- [`sessionDestroyed()`](src/main/java/com/example/OnlineUserListener.java:L29)：会话销毁时调用
 
 ### 4. 数据库操作
 
 #### 4.1 JDBC 基础操作
 [`UserDAO`](src/main/java/com/example/UserDAO.java)类展示了完整的JDBC CRUD操作：
-- 创建：[`add()`](src/main/java/com/example/UserDAO.java:12)方法
-- 读取：[`get()`](src/main/java/com/example/UserDAO.java:75)和[`getAll()`](src/main/java/com/example/UserDAO.java:96)方法
-- 更新：[`update()`](src/main/java/com/example/UserDAO.java:40)方法
-- 删除：[`delete()`](src/main/java/com/example/UserDAO.java:59)方法
+- 创建：[`add()`](src/main/java/com/example/UserDAO.java:L12)方法
+- 读取：[`get()`](src/main/java/com/example/UserDAO.java:L75)和[`getAll()`](src/main/java/com/example/UserDAO.java:L96)方法
+- 更新：[`update()`](src/main/java/com/example/UserDAO.java:L40)方法
+- 删除：[`delete()`](src/main/java/com/example/UserDAO.java:L59)方法
 
 #### 4.2 数据库连接池
 [`ConnectionPool`](src/main/java/com/example/ConnectionPool.java)实现了一个简单的数据库连接池：
-- 单例模式：[`getInstance()`](src/main/java/com/example/ConnectionPool.java:38)方法
-- 连接获取：[`getConnection()`](src/main/java/com/example/ConnectionPool.java:84)方法
-- 连接释放：[`releaseConnection()`](src/main/java/com/example/ConnectionPool.java:118)方法
-- 连接池管理：[`initializePool()`](src/main/java/com/example/ConnectionPool.java:48)和[`closeAll()`](src/main/java/com/example/ConnectionPool.java:153)方法
+- 单例模式：[`getInstance()`](src/main/java/com/example/ConnectionPool.java:L38)方法
+- 连接获取：[`getConnection()`](src/main/java/com/example/ConnectionPool.java:L84)方法
+- 连接释放：[`releaseConnection()`](src/main/java/com/example/ConnectionPool.java:L118)方法
+- 连接池管理：[`initializePool()`](src/main/java/com/example/ConnectionPool.java:L48)和[`closeAll()`](src/main/java/com/example/ConnectionPool.java:L153)方法
 
 #### 4.3 事务处理
 [`User2Servlet`](src/main/java/com/example/User2Servlet.java)和[`UserDAO`](src/main/java/com/example/UserDAO.java)展示了事务处理：
@@ -236,10 +236,10 @@ conn.rollback(); // 回滚事务
 ### 6. 嵌入式Tomcat配置
 
 [`Application`](src/main/java/com/example/Application.java)类展示了如何使用嵌入式Tomcat：
-- Tomcat实例创建：[`new Tomcat()`](src/main/java/com/example/Application.java:18)
-- 端口设置：[`tomcat.setPort(8080)`](src/main/java/com/example/Application.java:21)
-- 上下文配置：[`tomcat.addContext()`](src/main/java/com/example/Application.java:26)
-- Servlet配置：[`TomcatConfig.configureServlets(ctx)`](src/main/java/com/example/Application.java:42)
+- Tomcat实例创建：[`new Tomcat()`](src/main/java/com/example/Application.java:L18)
+- 端口设置：[`tomcat.setPort(8080)`](src/main/java/com/example/Application.java:L21)
+- 上下文配置：[`tomcat.addContext()`](src/main/java/com/example/Application.java:L26)
+- Servlet配置：[`TomcatConfig.configureServlets(ctx)`](src/main/java/com/example/Application.java:L42)
 
 ### 7. 跨域资源共享 (CORS)
 
@@ -253,8 +253,8 @@ response.setHeader("Access-Control-Allow-Headers", "Content-Type");
 ### 8. 配置管理
 
 [`PropertiesLoader`](src/main/java/com/example/PropertiesLoader.java)类展示了如何加载和使用配置文件：
-- UTF-8编码支持：[`new InputStreamReader(input, StandardCharsets.UTF_8)`](src/main/java/com/example/PropertiesLoader.java:35)
-- 配置项获取：[`getProperty()`](src/main/java/com/example/PropertiesLoader.java:48)方法
+- UTF-8编码支持：[`new InputStreamReader(input, StandardCharsets.UTF_8)`](src/main/java/com/example/PropertiesLoader.java:L35)
+- 配置项获取：[`getProperty()`](src/main/java/com/example/PropertiesLoader.java:L48)方法
 
 ## 项目运行指南
 
